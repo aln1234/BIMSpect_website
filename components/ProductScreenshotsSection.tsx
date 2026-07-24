@@ -7,10 +7,10 @@ export function ProductScreenshotsSection() {
     <section id="product-screenshots" className="screenshots-section">
       <div className="wrap">
         <Reveal as="p" className="eyebrow screenshots-eyebrow">
-          Product screenshots
+          Product view
         </Reveal>
         <Reveal as="h2" className="screenshots-heading" delay={90}>
-          What you see in BIMSpect
+          See the IFC change workflow in action
         </Reveal>
         <div className="screenshots-grid">
           {screenshots.map((screenshot, index) => (

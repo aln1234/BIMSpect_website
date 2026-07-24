@@ -1,9 +1,20 @@
-import { navLinks } from "./data";
+import { commercialNavLinks } from "./data";
 
-export function DesktopNavigation() {
+type NavigationLink = {
+  href: string;
+  label: string;
+};
+
+type DesktopNavigationProps = {
+  links?: NavigationLink[];
+};
+
+export function DesktopNavigation({
+  links = commercialNavLinks
+}: DesktopNavigationProps) {
   return (
     <div className="nav-links">
-      {navLinks.map((link) => (
+      {links.map((link) => (
         <a key={link.href} href={link.href}>
           {link.label}
         </a>

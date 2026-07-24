@@ -11,8 +11,13 @@ export function ProblemSection() {
             The problem
           </Reveal>
           <Reveal as="h2" delay={90}>
-            Design teams produce new model versions throughout the project — but
-            comparing them is manual and slow.
+            IFC models change constantly. Project decisions rarely see the change
+            clearly enough.
+          </Reveal>
+          <Reveal as="p" className="section-header-desc section-header-desc-wide" delay={160}>
+            Design teams release new model versions throughout the project. Without
+            structured comparison, coordination meetings depend on manual checking,
+            fragmented comments and assumptions about what has actually changed.
           </Reveal>
         </div>
         <StaggerContainer className="problem-grid">

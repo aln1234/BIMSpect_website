@@ -1,13 +1,23 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { commercialNavLinks, technicalNavLinks } from "./data";
 import { DesktopNavigation } from "./DesktopNavigation";
 import { MobileNavigation } from "./MobileNavigation";
 
-export function Header() {
+type HeaderVariant = "commercial" | "technical";
+
+type HeaderProps = {
+  variant?: HeaderVariant;
+};
+
+export function Header({ variant = "commercial" }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const isTechnical = variant === "technical";
+  const links = isTechnical ? technicalNavLinks : commercialNavLinks;
+  const cta = isTechnical ? null : { href: "#contact", label: "Request analysis" };
 
   const closeMenu = useCallback((restoreFocus = false) => {
     setOpen(false);
@@ -49,10 +59,12 @@ export function Header() {
           <a className="logo" href="#home">
             <span>BIM</span>Spect
           </a>
-          <DesktopNavigation />
-          <a className="btn btn-primary nav-cta" href="#contact">
-            Request access
-          </a>
+          <DesktopNavigation links={links} />
+          {cta ? (
+            <a className="btn btn-primary nav-cta" href={cta.href}>
+              {cta.label}
+            </a>
+          ) : null}
           <button
             ref={buttonRef}
             className="mobile-menu-btn"
@@ -113,7 +125,12 @@ export function Header() {
           </button>
         </div>
       </nav>
-      <MobileNavigation open={open} onNavigate={() => closeMenu(false)} />
+      <MobileNavigation
+        open={open}
+        onNavigate={() => closeMenu(false)}
+        links={links}
+        cta={cta}
+      />
     </header>
   );
 }

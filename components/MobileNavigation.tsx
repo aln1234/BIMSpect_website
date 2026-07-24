@@ -1,11 +1,28 @@
-import { navLinks } from "./data";
+import { commercialNavLinks } from "./data";
+
+type NavigationLink = {
+  href: string;
+  label: string;
+};
+
+type NavigationCta = {
+  href: string;
+  label: string;
+} | null;
 
 type MobileNavigationProps = {
   open: boolean;
   onNavigate: () => void;
+  links?: NavigationLink[];
+  cta?: NavigationCta;
 };
 
-export function MobileNavigation({ open, onNavigate }: MobileNavigationProps) {
+export function MobileNavigation({
+  open,
+  onNavigate,
+  links = commercialNavLinks,
+  cta = { href: "#contact", label: "Request analysis" }
+}: MobileNavigationProps) {
   return (
     <nav
       id="mobile-nav"
@@ -14,14 +31,16 @@ export function MobileNavigation({ open, onNavigate }: MobileNavigationProps) {
       aria-hidden={!open}
     >
       <div className="mobile-nav-inner">
-        {navLinks.map((link) => (
+        {links.map((link) => (
           <a key={link.href} href={link.href} onClick={onNavigate}>
             {link.label}
           </a>
         ))}
-        <a className="btn btn-primary" href="#contact" onClick={onNavigate}>
-          Request access
-        </a>
+        {cta ? (
+          <a className="btn btn-primary" href={cta.href} onClick={onNavigate}>
+            {cta.label}
+          </a>
+        ) : null}
       </div>
     </nav>
   );

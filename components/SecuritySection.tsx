@@ -2,7 +2,34 @@ import { securityItems } from "./data";
 import { Reveal } from "./Reveal";
 import { StaggerContainer } from "./StaggerContainer";
 
-export function SecuritySection() {
+type SecuritySectionProps = {
+  variant?: "commercial" | "technical";
+};
+
+const technicalSecurityItems = securityItems.map((item) => {
+  if (item.title === "NDA and DPA") {
+    return {
+      ...item,
+      body:
+        "Project-specific non-disclosure and data processing terms are part of the data handling work for sensitive IFC models."
+    };
+  }
+
+  if (item.title === "Who sees your files?") {
+    return {
+      ...item,
+      body:
+        "Only the BIMSpect team processes models used for the agreed analysis context. No third-party access without written consent."
+    };
+  }
+
+  return item;
+});
+
+export function SecuritySection({ variant = "commercial" }: SecuritySectionProps) {
+  const isTechnical = variant === "technical";
+  const items = isTechnical ? technicalSecurityItems : securityItems;
+
   return (
     <section id="security" className="section">
       <div className="wrap">
@@ -14,12 +41,13 @@ export function SecuritySection() {
             How we handle your project files
           </Reveal>
           <Reveal as="p" className="section-header-desc section-header-desc-narrow" delay={160}>
-            IFC models contain sensitive project information. We take data handling
-            seriously and answer the questions B2B buyers need answered.
+            {isTechnical
+              ? "IFC models contain sensitive project information. The technical preview describes how project files are processed and protected."
+              : "IFC models contain sensitive project information. We take data handling seriously and answer the questions B2B buyers need answered."}
           </Reveal>
         </div>
         <StaggerContainer className="security-grid">
-          {securityItems.map((item) => (
+          {items.map((item) => (
             <div className="security-item" key={item.title}>
               <div className="security-icon">{item.icon}</div>
               <div>

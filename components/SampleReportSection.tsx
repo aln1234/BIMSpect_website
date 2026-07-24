@@ -8,7 +8,13 @@ import {
 import { Reveal } from "./Reveal";
 import { StaggerContainer } from "./StaggerContainer";
 
-export function SampleReportSection() {
+type SampleReportSectionProps = {
+  showActions?: boolean;
+};
+
+export function SampleReportSection({
+  showActions = true
+}: SampleReportSectionProps) {
   return (
     <section id="sample-report" className="section">
       <div className="wrap">
@@ -88,14 +94,16 @@ export function SampleReportSection() {
                 </div>
               ))}
             </StaggerContainer>
-            <Reveal className="report-ctas" delay={180}>
-              <a className="btn btn-primary" href="#contact">
-                Request analysis for your project
-              </a>
-              <a className="btn btn-secondary" href="#contact">
-                Download sample PDF
-              </a>
-            </Reveal>
+            {showActions ? (
+              <Reveal className="report-ctas" delay={180}>
+                <a className="btn btn-primary" href="#contact">
+                  Request analysis for your project
+                </a>
+                <a className="btn btn-secondary" href="#contact">
+                  Download sample PDF
+                </a>
+              </Reveal>
+            ) : null}
           </div>
         </div>
       </div>
